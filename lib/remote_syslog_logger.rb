@@ -6,6 +6,8 @@ module RemoteSyslogLogger
   VERSION = '1.0.4'
 
   def self.new(remote_hostname, remote_port, options = {})
-    Logger.new(RemoteSyslogLogger::UdpSender.new(remote_hostname, remote_port, options))
+    logger = options[:custom_logger] || Logger
+
+    logger.new(RemoteSyslogLogger::UdpSender.new(remote_hostname, remote_port, options))
   end
 end
